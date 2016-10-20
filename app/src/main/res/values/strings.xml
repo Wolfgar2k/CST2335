@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Lab1</string>
+    <string name="hello_message">Hello World!</string>
+    <string name="ButtonText">I\'m a button</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login_text">Login:</string>
+    <string name="login_field_text">login name</string>
+    <string name="password_text">Password:</string>
+    <string name="title_activity_list_items">ListItemsActivity</string>
+    <string name="Button1Text">Button 1</string>
+    <string name="Button2Text">Button 2</string>
+    <string name="SwitchText">Enable Something</string>
+    <string name="btnLoginText">Login</string>
+    <string name="dialog_message">Do you want to finish the activity?</string>
+    <string name="dialog_title">Finish</string>
+    <string name="ok">Yes</string>
+    <string name="cancel">No</string>
+
+</resources>
