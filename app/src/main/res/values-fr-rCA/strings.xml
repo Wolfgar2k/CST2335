@@ -16,4 +16,6 @@
     <string name="dialog_title">Fin</string>
     <string name="ok">Oui</string>
     <string name="cancel">Non</string>
+    <string name="startChatbtn">Démarrer La Discussion</string>
+    <string name="btnSendText">Envoyer</string>
 </resources>

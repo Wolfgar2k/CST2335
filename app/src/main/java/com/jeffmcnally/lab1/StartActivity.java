@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import static android.R.attr.data;
+
+
 
 public class StartActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "StartActivity";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,7 @@ public class StartActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(ACTIVITY_NAME, "User clicked Hello World");
                 Intent intent = new Intent(StartActivity.this, ListItemsActivity.class);
                 startActivityForResult(intent, 5);
 
@@ -30,7 +34,19 @@ public class StartActivity extends AppCompatActivity {
 
         });
 
-    }
+        Button startChat = (Button) findViewById(R.id.startChat);
+        startChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(ACTIVITY_NAME, "User clicked Start Chat");
+                Intent intent = new Intent(StartActivity.this, ChatWindow.class);
+                startActivityForResult(intent, 5);
+            }
+
+        });
+    };
+
+
 
     @Override
     protected void onResume(){
@@ -42,6 +58,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         Log.i(ACTIVITY_NAME, "In onStart()");
+
     }
 
     @Override
@@ -54,6 +71,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
         Log.i(ACTIVITY_NAME, "In onStop()");
+
     }
 
     @Override
@@ -62,11 +80,11 @@ public class StartActivity extends AppCompatActivity {
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 5){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 5) {
             Log.i(ACTIVITY_NAME, "Returned to StartActivity.onActivityResult");
         }
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             String messagePassed = data.getStringExtra("Response");
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_LONG;
@@ -74,4 +92,6 @@ public class StartActivity extends AppCompatActivity {
             toast.show();
         }
     }
+
+
 }
