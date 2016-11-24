@@ -1,6 +1,9 @@
 package com.jeffmcnally.lab1;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +28,8 @@ public class ChatWindow extends AppCompatActivity {
     ImageButton btnSend;
     ArrayList<String> chatAdapterList;
     ChatAdapter chatAdapter;
+    ChatDatabaseHelper chatHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +42,13 @@ public class ChatWindow extends AppCompatActivity {
         chatText = (EditText) findViewById(R.id.chatText);
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         chatAdapterList = new ArrayList<String>();
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-//                this,
-//                android.R.layout.simple_list_item_1,
-//                chatAdapterList );
+        chatHelper = new ChatDatabaseHelper(this);
+        Cursor cursor = chatHelper.getData();
+
+        while (cursor.moveToNext()){
+            chatAdapterList.add(cursor.getString(cursor.getColumnIndex(chatHelper.KEY_MESSAGE)));
+        }
+
         chatAdapter = new ChatAdapter(this);
         chatView.setAdapter(chatAdapter);
 
@@ -49,7 +57,7 @@ public class ChatWindow extends AppCompatActivity {
             public void onClick(View view) {
 
                 chatAdapterList.add(chatText.getText().toString());
-//                chatView.setAdapter(chatAdaptor);
+                chatHelper.insertData(chatText.getText().toString());
                 chatAdapter.notifyDataSetChanged(); //this restarts the process of getCount()/ getView()
                 chatText.setText("");
             }
@@ -85,6 +93,7 @@ public class ChatWindow extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
+        chatHelper.close();
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
 
@@ -117,5 +126,9 @@ public class ChatWindow extends AppCompatActivity {
         }
 
     }
+
+
+
+
 
 }
